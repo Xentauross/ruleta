@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteo Aleatorio GitHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <h1>🎲 Selector Aleatorio</h1>
+
+        <div class="input-section">
+            <input type="text" id="nuevoItem" placeholder="Escribe una opción..." onkeypress="handleEnter(event)">
+            <button onclick="agregar()">Guardar</button>
+        </div>
+
+        <div class="result-section">
+            <button class="btn-action" onclick="sortear()">¡GIRAR RULETA!</button>
+            <div id="resultado" class="resultado-box">¿Quién será el elegido?</div>
+        </div>
+
+        <hr>
+
+        <div class="list-section">
+            <h3>📋 Lista de Opciones (<span id="contador">0</span>)</h3>
+            <button class="btn-danger" onclick="borrarTodo()">Borrar Todo</button>
+            <ul id="listaItems"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
