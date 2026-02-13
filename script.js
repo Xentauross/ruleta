@@ -46,49 +46,49 @@ function agregar() {
     }
 }
 
-// --- NUEVA LÓGICA DE SORTEO CON ANIMACIÓN ---
-let intervaloRuleta = null; // Variable para controlar la animación
+// --- SUSTITUYE ESTA FUNCIÓN EN TU SCRIPT.JS ---
+let intervaloRuleta = null;
 
 function sortear() {
     const lista = obtenerDatos();
     const resultadoBox = document.getElementById('resultado');
 
-    // 1. Validar si hay datos
     if (lista.length === 0) {
         resultadoBox.innerText = "⚠️ Lista vacía";
         return;
     }
 
-    // 2. Si ya está rodando, no hacemos nada (evita doble click)
-    if (intervaloRuleta) return;
+    if (intervaloRuleta) return; // Evita doble click
 
-    // 3. Quitar la clase de animación anterior (si la hubiera)
-    resultadoBox.classList.remove('ganador-anim');
-    resultadoBox.style.color = "#222"; // Resetear color
+    // --- LIMPIEZA TOTAL ANTES DE EMPEZAR ---
+    resultadoBox.classList.remove('ganador-anim'); // Quita la animación final
+    resultadoBox.style.color = "#000000";          // Fuerza color negro
+    resultadoBox.style.opacity = "1";              // Fuerza visibilidad
+    resultadoBox.style.transform = "scale(1)";     // Fuerza tamaño normal
+    // ---------------------------------------
 
-    // 4. Sonido o efecto visual inicial
     resultadoBox.innerText = "🎲 ...";
 
-    // 5. INICIAR LA RULETA (Cambia el nombre cada 80ms)
+    // Gira la ruleta (puedes subir el 80 a 150 si va demasiado rápido)
     intervaloRuleta = setInterval(() => {
         const randomTemp = Math.floor(Math.random() * lista.length);
         resultadoBox.innerText = lista[randomTemp];
     }, 80);
 
-    // 6. DETENER LA RULETA DESPUÉS DE 3 SEGUNDOS
+    // Se detiene a los 3 segundos
     setTimeout(() => {
-        clearInterval(intervaloRuleta); // Parar el movimiento
-        intervaloRuleta = null; // Liberar la variable
+        clearInterval(intervaloRuleta);
+        intervaloRuleta = null;
 
-        // Elegir el ganador FINAL real
         const ganadorIndice = Math.floor(Math.random() * lista.length);
         const ganadorNombre = lista[ganadorIndice];
 
-        // Mostrar ganador y aplicar animación
         resultadoBox.innerText = "⭐ " + ganadorNombre + " ⭐";
+
+        // Aplica la animación y el color rojo SOLO al final
         resultadoBox.classList.add('ganador-anim');
 
-    }, 3000); // 3000ms = 3 segundos de emoción
+    }, 3000);
 }
 
 function eliminarUno(index) {
