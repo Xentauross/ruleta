@@ -96,3 +96,38 @@ li {
     display: flex;
     justify-content: space-between;
 }
+
+/* --- Animación del Ganador --- */
+.ganador-anim {
+    animation: capturaPokemon 0.6s ease-out forwards;
+    color: #dc0a2d !important;
+    /* Rojo intenso */
+    text-shadow: 2px 2px 0px #fff;
+    border-color: #ffcb05 !important;
+    /* Borde amarillo */
+    background-color: #fff !important;
+}
+
+@keyframes capturaPokemon {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    /* Se hace gigante */
+    70% {
+        transform: scale(0.9);
+    }
+
+    /* Se encoge un poco */
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    /* Vuelve a tamaño normal */
+}
