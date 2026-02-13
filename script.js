@@ -1,4 +1,3 @@
-// Al cargar la página, recuperamos lo guardado
 document.addEventListener('DOMContentLoaded', cargarLista);
 
 function obtenerDatos() {
@@ -25,7 +24,37 @@ function cargarLista() {
         `;
         ul.appendChild(li);
     });
+
+    // --- NUEVO: Sincronizar checkboxes ---
+    // Recorre todos los checkboxes y mira si su valor está en la lista
+    const checkboxes = document.querySelectorAll('.tipos-grid input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+        cb.checked = lista.includes(cb.value);
+    });
 }
+
+// --- NUEVA FUNCIÓN PARA LOS CHECKBOXES ---
+function toggleTipo(checkbox) {
+    const valor = checkbox.value;
+    const lista = obtenerDatos();
+
+    if (checkbox.checked) {
+        // Si se marca y no está en la lista, añadir
+        if (!lista.includes(valor)) {
+            lista.push(valor);
+        }
+    } else {
+        // Si se desmarca, borrar de la lista
+        const index = lista.indexOf(valor);
+        if (index > -1) {
+            lista.splice(index, 1);
+        }
+    }
+
+    guardarDatos(lista);
+    cargarLista();
+}
+// -----------------------------------------
 
 function agregar() {
     const input = document.getElementById('nuevoItem');
@@ -34,8 +63,6 @@ function agregar() {
     if (!texto.trim()) return alert("¡Escribe algo primero!");
 
     const lista = obtenerDatos();
-
-    // Separa por comas, limpia espacios y filtra vacíos
     const nuevosElementos = texto.split(',').map(palabra => palabra.trim()).filter(palabra => palabra !== "");
 
     if (nuevosElementos.length > 0) {
@@ -46,7 +73,7 @@ function agregar() {
     }
 }
 
-// --- SUSTITUYE ESTA FUNCIÓN EN TU SCRIPT.JS ---
+// --- SORTEO (Igual que antes) ---
 let intervaloRuleta = null;
 
 function sortear() {
@@ -58,24 +85,20 @@ function sortear() {
         return;
     }
 
-    if (intervaloRuleta) return; // Evita doble click
+    if (intervaloRuleta) return;
 
-    // --- LIMPIEZA TOTAL ANTES DE EMPEZAR ---
-    resultadoBox.classList.remove('ganador-anim'); // Quita la animación final
-    resultadoBox.style.color = "#000000";          // Fuerza color negro
-    resultadoBox.style.opacity = "1";              // Fuerza visibilidad
-    resultadoBox.style.transform = "scale(1)";     // Fuerza tamaño normal
-    // ---------------------------------------
+    resultadoBox.classList.remove('ganador-anim');
+    resultadoBox.style.color = "#000000";
+    resultadoBox.style.opacity = "1";
+    resultadoBox.style.transform = "scale(1)";
 
     resultadoBox.innerText = "🎲 ...";
 
-    // Gira la ruleta (puedes subir el 80 a 150 si va demasiado rápido)
     intervaloRuleta = setInterval(() => {
         const randomTemp = Math.floor(Math.random() * lista.length);
         resultadoBox.innerText = lista[randomTemp];
     }, 80);
 
-    // Se detiene a los 3 segundos
     setTimeout(() => {
         clearInterval(intervaloRuleta);
         intervaloRuleta = null;
@@ -84,8 +107,6 @@ function sortear() {
         const ganadorNombre = lista[ganadorIndice];
 
         resultadoBox.innerText = "⭐ " + ganadorNombre + " ⭐";
-
-        // Aplica la animación y el color rojo SOLO al final
         resultadoBox.classList.add('ganador-anim');
 
     }, 3000);

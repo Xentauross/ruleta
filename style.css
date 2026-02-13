@@ -130,6 +130,96 @@ li {
     transform: scale(1);
 }
 
+/* --- Estilos Teraraids --- */
+details.teraraids-container {
+    margin: 20px 0;
+    width: 100%;
+    border: 3px solid #222;
+    border-radius: 10px;
+    background: #fff;
+    overflow: hidden;
+}
+
+summary {
+    background-color: #68a090;
+    /* Verde azulado cristalino */
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    /* Quitar triángulo por defecto */
+    text-transform: uppercase;
+    border-bottom: 2px solid #222;
+}
+
+summary:hover {
+    background-color: #4c7c70;
+}
+
+/* Rejilla para los tipos */
+.tipos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columnas */
+    gap: 8px;
+    padding: 10px;
+    background: #f0f0f0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* --- Ajustes de Iconos en la Grid --- */
+
+.tipos-grid {
+    /* Mantenemos lo anterior */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    /* Auto ajuste mejorado */
+    gap: 8px;
+    padding: 10px;
+    background: #f0f0f0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.type-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Espacio entre checkbox, icono y texto */
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    background: #fff;
+    padding: 6px 10px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    /* Bordes más redondos estilo botón */
+    transition: all 0.2s;
+}
+
+.type-label:hover {
+    border-color: #28aeff;
+    transform: translateY(-2px);
+    /* Pequeño saltito al pasar el mouse */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* El icono del tipo */
+.type-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* Cuando el checkbox está marcado, cambiar el borde a rojo */
+.type-label:has(input:checked) {
+    border-color: #dc0a2d;
+    background-color: #ffe6e6;
+}
+
 @keyframes capturaPokemon {
     0% {
         transform: scale(0.5);
