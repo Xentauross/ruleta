@@ -10,138 +10,154 @@
 
 <body>
     <div class="main-container">
-        <h1>🎲 Selector Aleatorio</h1>
+        <h1><svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="#FFFFFF" stroke="#000000" stroke-width="5" />
 
-        <div class="input-section">
-            <input type="text" id="nuevoItem" placeholder="Escribe una opción..." onkeypress="handleEnter(event)">
-            <button onclick="agregar()">Guardar</button>
+                <path d="M 5,50 A 45,45 0 0 1 95,50" fill="#FF0000" stroke="none" />
+
+                <line x1="5" y1="50" x2="95" y2="50" stroke="#000000" stroke-width="5" stroke-linecap="butt" />
+
+                <circle cx="50" cy="50" r="12" fill="#FFFFFF" stroke="#000000" stroke-width="5" />
+
+                <circle cx="50" cy="50" r="5" fill="#FFFFFF" opacity="0.5" />
+            </svg>Pokémon Escaralta/Púrpura</h1>
+
+        <div class="dashboard-grid">
+
+            <div class="col-left">
+
+                <div class="panel-section">
+                    <h3 class="section-title">💾 Centro de Datos</h3>
+
+                    <div class="save-slots">
+                        <label>Seleccionar Ruta:</label>
+
+                        <div class="route-manager-row">
+                            <select id="rutaSelect">
+                            </select>
+                            <button class="btn-icon add" onclick="crearNuevaRuta()" title="Crear nueva ruta">➕</button>
+                            <button class="btn-icon del" onclick="borrarRutaActual()"
+                                title="Borrar ruta seleccionada">🗑️</button>
+                        </div>
+
+                        <div class="slot-buttons">
+                            <button class="btn-save" onclick="guardarEnRuta()">Guardar Datos</button>
+                            <button class="btn-load" onclick="cargarDeRuta()">Cargar Datos</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3 class="section-title">📝 Entrada Manual</h3>
+                    <div class="input-group">
+                        <input type="text" id="nuevoItem" placeholder="Ej: Mewtwo, Mew..."
+                            onkeypress="handleEnter(event)">
+                        <button class="btn-add" onclick="agregar()">Añadir</button>
+                    </div>
+                </div>
+
+                <div class="panel-section flex-grow">
+                    <h3 class="section-title">📋 En la mochila (<span id="contador">0</span>)</h3>
+                    <ul id="listaItems"></ul>
+                    <button class="btn-danger full-width" onclick="borrarTodo()">Vaciar Mochila</button>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <div class="panel-section full-height">
+                    <div class="section-header-row">
+                        <h3 class="section-title">💎 Selector de Teratipos</h3>
+                        <button class="btn-mini-danger" onclick="desmarcarTodosTipos()" title="Desmarcar todos">
+                            Limpiar Raids
+                        </button>
+                    </div>
+
+                    <div class="tipos-container">
+                        <div class="tipos-grid">
+                            <label class="type-label normal"><input type="checkbox" value="Normal"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/normal.svg"
+                                    class="type-icon">Normal</label>
+                            <label class="type-label fuego"><input type="checkbox" value="Fuego"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/fire.svg"
+                                    class="type-icon">Fuego</label>
+                            <label class="type-label agua"><input type="checkbox" value="Agua"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/water.svg"
+                                    class="type-icon">Agua</label>
+                            <label class="type-label planta"><input type="checkbox" value="Planta"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/grass.svg"
+                                    class="type-icon">Planta</label>
+                            <label class="type-label electrico"><input type="checkbox" value="Eléctrico"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/electric.svg"
+                                    class="type-icon">Eléctrico</label>
+                            <label class="type-label hielo"><input type="checkbox" value="Hielo"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/ice.svg"
+                                    class="type-icon">Hielo</label>
+                            <label class="type-label lucha"><input type="checkbox" value="Lucha"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/fighting.svg"
+                                    class="type-icon">Lucha</label>
+                            <label class="type-label veneno"><input type="checkbox" value="Veneno"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/poison.svg"
+                                    class="type-icon">Veneno</label>
+                            <label class="type-label tierra"><input type="checkbox" value="Tierra"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/ground.svg"
+                                    class="type-icon">Tierra</label>
+                            <label class="type-label volador"><input type="checkbox" value="Volador"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/flying.svg"
+                                    class="type-icon">Volador</label>
+                            <label class="type-label psiquico"><input type="checkbox" value="Psíquico"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/psychic.svg"
+                                    class="type-icon">Psíquico</label>
+                            <label class="type-label bicho"><input type="checkbox" value="Bicho"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/bug.svg"
+                                    class="type-icon">Bicho</label>
+                            <label class="type-label roca"><input type="checkbox" value="Roca"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/rock.svg"
+                                    class="type-icon">Roca</label>
+                            <label class="type-label fantasma"><input type="checkbox" value="Fantasma"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/ghost.svg"
+                                    class="type-icon">Fantasma</label>
+                            <label class="type-label dragon"><input type="checkbox" value="Dragón"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/dragon.svg"
+                                    class="type-icon">Dragón</label>
+                            <label class="type-label acero"><input type="checkbox" value="Acero"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/steel.svg"
+                                    class="type-icon">Acero</label>
+                            <label class="type-label siniestro"><input type="checkbox" value="Siniestro"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/dark.svg"
+                                    class="type-icon">Siniestro</label>
+                            <label class="type-label hada"><input type="checkbox" value="Hada"
+                                    onchange="toggleTipo(this)"><img
+                                    src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/fairy.svg"
+                                    class="type-icon">Hada</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <div class="tipos-grid">
-            <label class="type-label">
-                <input type="checkbox" value="Normal" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/normal.svg"
-                    class="type-icon">
-                Normal
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Fuego" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/fire.svg"
-                    class="type-icon">
-                Fuego
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Agua" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/water.svg"
-                    class="type-icon">
-                Agua
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Planta" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/grass.svg"
-                    class="type-icon">
-                Planta
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Eléctrico" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/electric.svg"
-                    class="type-icon">
-                Eléctrico
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Hielo" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/ice.svg"
-                    class="type-icon">
-                Hielo
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Lucha" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/fighting.svg"
-                    class="type-icon">
-                Lucha
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Veneno" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/poison.svg"
-                    class="type-icon">
-                Veneno
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Tierra" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/ground.svg"
-                    class="type-icon">
-                Tierra
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Volador" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/flying.svg"
-                    class="type-icon">
-                Volador
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Psíquico" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/psychic.svg"
-                    class="type-icon">
-                Psíquico
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Bicho" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/bug.svg"
-                    class="type-icon">
-                Bicho
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Roca" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/rock.svg"
-                    class="type-icon">
-                Roca
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Fantasma" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/ghost.svg"
-                    class="type-icon">
-                Fantasma
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Dragón" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/dragon.svg"
-                    class="type-icon">
-                Dragón
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Acero" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/steel.svg"
-                    class="type-icon">
-                Acero
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Siniestro" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/dark.svg"
-                    class="type-icon">
-                Siniestro
-            </label>
-            <label class="type-label">
-                <input type="checkbox" value="Hada" onchange="toggleTipo(this)">
-                <img src="https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/master/icons/fairy.svg"
-                    class="type-icon">
-                Hada
-            </label>
-        </div>
-
-        <div class="result-section">
+        <div class="action-area">
             <button class="btn-action" onclick="sortear()">¡GIRAR RULETA!</button>
             <div id="resultado" class="resultado-box">¿Quién será el elegido?</div>
         </div>
 
-        <hr>
-
-        <div class="list-section">
-            <h3>📋 Lista de Opciones (<span id="contador">0</span>)</h3>
-            <button class="btn-danger" onclick="borrarTodo()">Borrar Todo</button>
-            <ul id="listaItems"></ul>
-        </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 
